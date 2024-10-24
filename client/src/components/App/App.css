@@ -1,0 +1,17 @@
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+}
+
+.fileListEditorConsoleContainer {
+    display: flex; 
+    width: 80vw;
+    height: 75vh;
+}
+

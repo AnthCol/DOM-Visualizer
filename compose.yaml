@@ -1,0 +1,38 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    networks:
+      - client-server
+      - server-database
+    depends_on:
+      - database
+
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client/src:/client/src
+    networks:
+      - client-server
+
+  database:
+    container_name: database
+    build: ./database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    networks:
+      - server-database
+
+networks:
+  client-server:
+    driver: bridge
+  server-database:
+    driver: bridge
+

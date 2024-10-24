@@ -1,0 +1,29 @@
+.fileList {
+    background-color: darkgray;
+    height: 100%;
+    width: 10%;
+    overflow-y: scroll;
+    border: 1px solid white;
+}   
+
+.unselectedFile {
+    border: 1px solid gray;
+    border-radius: 1px;
+    width: 100%;
+    height: 4%;
+    background-color: gainsboro; 
+    color: black;
+    text-align: centre;
+    font-family: 'Courier New', Courier, monospace
+}
+
+.selectedFile {
+    border: 1px solid gray;
+    border-radius: 1px;
+    width: 100%;
+    height: 4%;
+    background-color: lightgreen;
+    color: black;
+    text-align: centre;
+    font-family: 'Courier New', Courier, monospace
+}
