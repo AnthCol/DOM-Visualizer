@@ -1,4 +1,4 @@
-### M68k-Simulator (Work In Progress)
+### DOM-Visualizer (Work In Progress)
 
 > A web-based viewer for the DOM (Document-Object-Model)
 
@@ -66,4 +66,4 @@ docker compose down
 
 ### Motivation
 
-The primary motivation for this project was just for myself to become more comfortable with full-stack technologies and building those kinds of projects from the ground up. I enjoy parsing things so I decided to just make a simple HTML tag parser.
+The primary motivation for this project was just for myself to become more comfortable with full-stack technologies and building those kinds of projects from the ground up. I enjoy parsing things so I decided to just make a simple HTML tag parser. Perhaps it could be a useful tool for someone new to web development, wanting to better understand what HTML / the DOM looks like under the hood. 
