@@ -8,7 +8,7 @@ DO $$
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM files) THEN
         INSERT INTO files (name, content) VALUES
-            ('MyFirstFile.x68', '* My First File');
+            ('MyFirstFile.html', '<abbr>');
     END IF;
 END $$;
 
