@@ -1,8 +1,9 @@
 import ace from "ace-builds/src-noconflict/ace";
 import AceEditor from "react-ace";
 import "./Editor.css";
-
+import "ace-builds/src-noconflict/mode-html";
 ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
+
 
 const Editor = ({listOfFiles, selectedFileIndex}) => {  
     const codeChange = (newCode) => { 
@@ -28,6 +29,7 @@ const Editor = ({listOfFiles, selectedFileIndex}) => {
     return (
         <div className="editor">
             <AceEditor
+                mode={"html"}
                 onChange={codeChange}
                 value={getSelectedFileContent()}
                 defaultValue={defaultProgram}
