@@ -1,6 +1,6 @@
 class Parser {
     #currentMatch = "";
-    #fileContent;
+    #fileContent = "";
     #charPointer = 0;
     #tabLevel = 0;
     #result = "";
@@ -10,15 +10,14 @@ class Parser {
         // strip leading whitespace from fileContent
         // so that the first thing is a <, or at least should 
         // be.
-        this.#fileContent = fileContent.trimStart();
-
+        this.#fileContent = fileContent.trim();
         console.log("printing fielContent : " + this.#fileContent);
     }
 
     tagOpener() {
         const pointerReset = this.#charPointer;
-
-        console.log("in tag closer\n");
+        
+        console.log("in tag opener\n"); 
 
         if (this.currentChar() === '<') {
             this.appendCurrentMatch(this.currentChar());
@@ -69,6 +68,7 @@ class Parser {
 
             // at this point, 
             const result = this.findNextTagCloser();            
+            return result;
         }
 
         this.reset(pointerReset);
@@ -80,13 +80,17 @@ class Parser {
     tagCloser() {
         const pointerReset = this.#charPointer;
 
-        console.log("in tag closer");
 
         if (this.currentChar() === '>') {
             this.appendCurrentMatch(this.currentChar());
-            console.log("FOUND A MATCH: " + this.#currentMatch);
-            this.resetCurrentMatch();
-            return this.findNextTagOpener();
+            console.log("MATCH FOUND: " + this.#currentMatch);
+            this.consumeCharacter();
+            if (this.doneMatching()) {
+                return true;
+            } else {
+                this.resetCurrentMatch();
+                return this.findNextTagOpener();
+            }
         }
 
         this.reset(pointerReset);
@@ -110,6 +114,11 @@ class Parser {
     // Helper functions below
     //////////////////////////////////
 
+    // checks if we have extended past the end of the thing
+    doneMatching() {
+        return (this.#charPointer === this.#fileContent.length);
+    }
+
     findNextTagCloser() {
         let found = true;
         while (this.currentChar() !== '>') {
@@ -120,7 +129,6 @@ class Parser {
                 break;
             }
         }
-
         return (found) ? this.tagCloser() : false;
     }
 
@@ -153,8 +161,6 @@ class Parser {
     appendCurrentMatch(currentCharacter) {
         this.#currentMatch += currentCharacter;
     }
-
-
 
     currentChar() {
         let len = this.#fileContent.length;
