@@ -50,6 +50,7 @@ function DeleteButton({listOfFiles, setListOfFiles, selectedFileIndex, setSelect
         
         let listWithFileRemoved = listOfFiles.filter(file => file.getName() !== fileName); 
         setListOfFiles(listWithFileRemoved);
+        closeDeleteFileDialog();
     }
 
     function openDeleteFileDialog() {
