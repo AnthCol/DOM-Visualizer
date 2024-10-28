@@ -1,18 +1,15 @@
 package visualizer.Server.config;
 
+import org.springframework.lang.NonNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        if (registry == null) {
-            System.out.println("ERROR: registry variable in WebConfig.java (addCorsMappings) is null.");
-            System.exit(-1);
-        }
-
+    public void addCorsMappings(@NonNull CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOrigins(ConfigConstants.clientURL)
                 .allowedMethods("GET", "POST", "DELETE")
