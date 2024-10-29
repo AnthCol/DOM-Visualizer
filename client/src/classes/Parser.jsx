@@ -450,6 +450,7 @@ class Parser {
         if (char === '>') {
             this.processMatch(char);
 
+            // FIXME: Make this actually work.
             this.#matches += this.#currentMatch + "\n";
 
             if (this.doneMatching()) {
@@ -506,7 +507,7 @@ class Parser {
 
     findNextTagOpener() {
         let found = true;
-
+        console.log("IN THIS\n");
         while (this.currentChar() !== '<') {
             this.consumeCharacter(); 
             // if we have run to the end of the file 
@@ -515,7 +516,7 @@ class Parser {
                 break;
             }
         }
-        return this.tagOpener();
+        return (found) ? this.tagOpener() : false;
     }
 
     onValidIndex() {
