@@ -1,447 +1,613 @@
 class Parser {
-    #currentMatch = "";
-    #fileContent = "";
-    #charPointer = 0;
-    #tabLevel = 0;
-    #result = "";
-    #tagList = [];
-    #matches = "";
+    #currentMatch;
+    #fileContent;
+    #charPointer;
+    #tabLevel;
+    #result;
+    #tagList;
+    #matches;
 
     constructor(fileContent) {
         // strip leading whitespace from fileContent
         // so that the first thing is a <, or at least should 
         // be.
+        this.#charPointer = 0;
+        this.#currentMatch = "";
+        this.#tabLevel = 0;
+        this.#result = "";
+        this.#tagList = [];
+        this.#matches= "";
         this.#fileContent = fileContent.trim();
-        console.log("printing fielContent : " + this.#fileContent);
+        console.log("printing fileContent : " + this.#fileContent);
     }
 
     tagOpener() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();
+        let result = false;
 
         if (char === '<') {
             this.processMatch(char);
-
-            let result = this.a();
-            return result;
+            result = this.a()
+                  || this.b()
+                  || this.c()
+                  || this.d()
+                  || this.e()
+                  || this.f()
+                  || this.h()
+                  || this.i()
+                  || this.k()
+                  || this.l()
+                  || this.m()
+                  || this.n()
+                  || this.o()
+                  || this.p()
+                  || this.q()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.u()
+                  || this.v()
+                  || this.w();
         } 
         
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
     a() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();        
+        let result = false;
 
         if (char === 'a') {
             this.processMatch(char);
 
-            const result = this.b() 
-                        || this.d()
-                        || this.r()
-                        || this.s()
-                        || this.u()
-                        || this.tagCloser()
-                        || this.findNextTagCloser();
-            return result;
+            console.log("printing current Match: " + this.#currentMatch);
+            console.log("printing current pointer: " + this.#charPointer);
+            console.log("printing next char: " + JSON.stringify(this.currentChar()));
+
+            result = this.b()
+                  || this.c()
+                  || this.d()
+                  || this.i()
+                  || this.l()
+                  || this.m()
+                  || this.n()
+                  || this.p()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.u()
+                  || this.v()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
+            
+            console.log("result : " + result);
         }
 
-        this.reset(pointerReset);
-        return false;
+        return result;
     }    
 
     b() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();        
+        let result = false;
 
         if (char === 'b') {
             this.processMatch(char);
 
-            const result = this.b() 
-                        || this.r();
-            return result;
+            result = this.a()
+                  || this.b()
+                  || this.d()
+                  || this.e()
+                  || this.j()
+                  || this.l()
+                  || this.o()
+                  || this.r()
+                  || this.u()
+                  || this.y()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()    
         }
 
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
     c() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();
+        let result = false;
 
         if (char === 'c') {
             this.processMatch(char);
 
-            const result = this.l();
-            return result; 
+            result = this.a()
+                  || this.e()
+                  || this.i()
+                  || this.k()
+                  || this.l()
+                  || this.o()
+                  || this.r()
+                  || this.t();
         }
 
-
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
 
     d() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();
-        
+        let result = false;        
+
         if (char === 'd') {
             this.processMatch(char);
 
-            const result = this.d()
-                        || this.r()
-                        || this.s()
-                        || this.e()
-                        || this.i();
-            return result;
+            result = this.a()
+                  || this.d()
+                  || this.e()
+                  || this.f()
+                  || this.i()
+                  || this.l()
+                  || this.o()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.y()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
     e() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false; 
+
         if (char === 'e') {
             this.processMatch(char);
-            
-            const result = this.s() 
-                        || this.a()
-                        || this.findNextTagCloser();
-            return result;
+            result = this.a()
+                  || this.c()
+                  || this.d()
+                  || this.g()
+                  || this.l()
+                  || this.m()
+                  || this.n()
+                  || this.o()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.x() 
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
+    
 
     f() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;
+
         if (char === 'f') {
             this.processMatch(char);
-            
-            const result = false;
-            return result;
+            result = this.i()
+                  || this.n()
+                  || this.o()
+                  || this.r();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
     g() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'g') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.c()
+                  || this.e()
+                  || this.r()
+                  || this.u()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
     
     h() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;
+
         if (char === 'h') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.numbers()
+                  || this.e()
+                  || this.g()
+                  || this.r()
+                  || this.t()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     i() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false; 
+
         if (char === 'i') {
             this.processMatch(char);
             
-            const result = this.d()
-                        || this.o()
-                        || this.c();
-            return result;
+            result = this.a()
+                  || this.c()
+                  || this.d()
+                  || this.e()
+                  || this.f()
+                  || this.g()
+                  || this.l()
+                  || this.m()
+                  || this.n()
+                  || this.o()
+                  || this.p()
+                  || this.s()
+                  || this.t()
+                  || this.v()  
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
     j() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false; 
+
         if (char === 'j') {
             this.processMatch(char);
-            
-            const result = false;
-            return result;
+           
+            result = this.e();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     k() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'k') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.b()
+                  || this.q()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     l() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;
+
         if (char === 'l') {
             this.processMatch(char);
-            
-            const result = this.e();
-            return result;
+
+            result = this.a()
+                  || this.d()
+                  || this.e()
+                  || this.g()
+                  || this.i()
+                  || this.l()
+                  || this.o()
+                  || this.s() 
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     m() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'm') {
             this.processMatch(char);
-            
-            const result = false;
-            return result;
+            result = this.a()
+                  || this.b()
+                  || this.e()
+                  || this.g()
+                  || this.l()
+                  || this.m()
+                  || this.p()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     n() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;
+
         if (char === 'n') {
             this.processMatch(char);
-            
-            const result = false;
-            return result;
+        
+            result = this.a()
+                  || this.d()
+                  || this.g()
+                  || this.k()
+                  || this.o()
+                  || this.p()
+                  || this.s()
+                  || this.v()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+
+        return result;
     }
 
 
     o() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'o') {
             this.processMatch(char);
             
-            const result = this.findNextTagCloser();
-            return result;
+            result = this.b()
+                  || this.c()
+                  || this.d()
+                  || this.g()
+                  || this.l()
+                  || this.n()
+                  || this.o()
+                  || this.p()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.u()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     p() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'p') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.a()
+                  || this.i()
+                  || this.l()
+                  || this.r()
+                  || this.t()
+                  || this.u()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     q() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'q') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.u()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     r() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
+        let result = false;
 
         if (char === 'r') {
             this.processMatch(char);
-            const result = this.e()
-                        || this.t()
-                        || this.findNextTagCloser();            
-            return result;
+
+            result = this.a()
+                  || this.c()
+                  || this.e()
+                  || this.i()
+                  || this.k()
+                  || this.m()
+                  || this.o()
+                  || this.p()
+                  || this.t()
+                  || this.u()
+                  || this.y()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
         }
 
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
 
     s() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 's') {
             this.processMatch(char);
             
-            const result = this.s()
-                        || this.i()
-                        || this.tagCloser()
-                        || this.findNextTagCloser();
-            return result;
+            result = this.a() 
+                  || this.c()
+                  || this.e()
+                  || this.i()
+                  || this.l()
+                  || this.m()
+                  || this.o()
+                  || this.p()
+                  || this.s()
+                  || this.t()
+                  || this.u()
+                  || this.v()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     t() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false; 
+
         if (char === 't') {
             this.processMatch(char);
             
-            const result = this.i();
-            return result;
+            result = this.a()
+                  || this.b()
+                  || this.d()
+                  || this.e()
+                  || this.f()
+                  || this.g()
+                  || this.h()
+                  || this.i()
+                  || this.l()
+                  || this.m()
+                  || this.o()
+                  || this.p()
+                  || this.r()
+                  || this.t()
+                  || this.u()
+                  || this.y()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;  
     }
 
 
     u() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'u') {
             this.processMatch(char);
             
-            const result = this.d();
-            return result;
+            result = this.b()
+                  || this.d()
+                  || this.l()
+                  || this.m()
+                  || this.o()
+                  || this.p()
+                  || this.r()
+                  || this.t()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     v() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;
+
         if (char === 'v') {
             this.processMatch(char);
-            
-            const result = false;
-            return result;
+        
+            result = this.a()
+                  || this.g()
+                  || this.i()
+                  || this.tagCloser()
+                  || this.findNextTagCloser()
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return false;
     }
 
 
     w() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'w') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.b();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
     x() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'x') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.t();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
 
     y() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar(); 
-        
+        let result = false;        
+
         if (char === 'y') {
             this.processMatch(char);
             
-            const result = false;
-            return result;
+            result = this.l()
+                  || this.tagCloser()
+                  || this.findNextTagCloser();
         }
 
-        this.reset(pointerReset);
-        return false; 
+        return result;
     }
 
+
+    numbers() {
+        const char = this.currentChar();
+        const numbers = ['1', '2', '3', '4', '5', '6'];
+        let result = false;
+
+        if (numbers.includes(char)) {
+            this.processMatch(char);
+
+            result = this.findNextTagCloser();
+        }
+
+        return result;
+    }
 
     tagCloser() {
         const pointerReset = this.#charPointer;
@@ -494,6 +660,7 @@ class Parser {
 
     findNextTagCloser() {
         let found = true;
+
         while (this.currentChar() !== '>') {
             this.consumeCharacter();
             // if we have run to the end of the file
@@ -502,12 +669,13 @@ class Parser {
                 break;
             }
         }
+
         return (found) ? this.tagCloser() : false;
     }
 
     findNextTagOpener() {
         let found = true;
-        console.log("IN THIS\n");
+        
         while (this.currentChar() !== '<') {
             this.consumeCharacter(); 
             // if we have run to the end of the file 
@@ -516,6 +684,7 @@ class Parser {
                 break;
             }
         }
+
         return (found) ? this.tagOpener() : false;
     }
 
@@ -536,11 +705,11 @@ class Parser {
     }
 
     currentChar() {
-        let len = this.#fileContent.length;
-        let current = this.#charPointer;
+        const len = this.#fileContent.length;
+        const current = this.#charPointer;
 
         if (current < len) {
-            let c = this.#fileContent.charAt(current);
+            const c = this.#fileContent.charAt(current);
             return c;
         }
         // if we are past the end of the string don't match
