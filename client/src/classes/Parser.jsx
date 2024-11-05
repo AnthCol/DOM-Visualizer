@@ -80,7 +80,8 @@ class Parser {
                   || this.tagCloser()
                   || this.findNextTagCloser()
             
-            console.log("result : " + result);
+            console.log("printing result in a : result : " + result);
+            console.trace();
         }
 
         return result;
@@ -356,6 +357,9 @@ class Parser {
                   || this.v()
                   || this.tagCloser()
                   || this.findNextTagCloser();
+
+            console.log("printing return value in n: " + result); 
+            console.trace(); 
         }
 
 
@@ -459,7 +463,9 @@ class Parser {
 
         if (char === 's') {
             this.processMatch(char);
-            
+    
+            console.log("printing current shit in s: " + this.#currentMatch);
+
             result = this.a() 
                   || this.c()
                   || this.e()
@@ -474,6 +480,8 @@ class Parser {
                   || this.v()
                   || this.tagCloser()
                   || this.findNextTagCloser();
+
+            console.log("printing result value in s : " + result); 
         }
 
         return result;
@@ -548,7 +556,7 @@ class Parser {
                   || this.findNextTagCloser()
         }
 
-        return false;
+        return result;
     }
 
 
@@ -610,25 +618,25 @@ class Parser {
     }
 
     tagCloser() {
-        const pointerReset = this.#charPointer;
         const char = this.currentChar();
+        let result = false;
 
         if (char === '>') {
             this.processMatch(char);
-
+ 
             // FIXME: Make this actually work.
+            // needs to be working with the 
             this.#matches += this.#currentMatch + "\n";
-
-            if (this.doneMatching()) {
-                return true;
-            } else {
-                this.resetCurrentMatch();
-                return this.findNextTagOpener();
-            }
+            // consume current match here. 
+            this.#currentMatch = "";
+            
+            // Once we find a match,  
+            result = this.doneMatching() 
+                  || this.tagOpener()
+                  || this.findNextTagOpener(); 
         }
 
-        this.reset(pointerReset);
-        return false;
+        return result;
     }
 
     /////////////////////////////////
@@ -640,7 +648,7 @@ class Parser {
     // Will return true if it makes it to the 
     // end of the file without failing. 
     parse() {
-        return this.tagOpener();
+        return this.findNextTagOpener();
     }
 
 
@@ -655,7 +663,33 @@ class Parser {
 
     // checks if we have extended past the end of the thing
     doneMatching() {
-        return (this.#charPointer === this.#fileContent.length);
+        // check if there are only spaces left
+        let result = (this.#charPointer === this.#fileContent.length);
+
+        console.log("made it to done matching.\n"); 
+        console.log("printing current match in done matching : "  + this.#currentMatch);
+        console.log("here is the current chqaracter pointer: "  + this.#charPointer);
+        console.log("here is the filecontent.length : " + this.#fileContent.length); 
+        console.log("here is the current match : " + this.#currentMatch);
+        console.trace(); 
+
+        if (!result) {
+            let tempPtr = this.#charPointer;
+
+            while (tempPtr != this.#fileContent.length) {
+                const char = this.#fileContent[tempPtr];
+                
+                if (!/\s/.test(char)) {
+                    result = false;
+                    break;
+                }
+                tempPtr += 1;
+            }
+        }
+
+        console.log("printing return result from done matching : " + result);
+
+        return result;
     }
 
     findNextTagCloser() {
