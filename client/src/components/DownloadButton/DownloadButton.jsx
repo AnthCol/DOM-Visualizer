@@ -1,29 +1,22 @@
 function DownloadButton({listOfFiles, selectedFileIndex}) {
     
-    const deleteCreatedFile = async(fileName) => {
-        console.log("request to delete created file \n");
+    function downloadFile() {
+        const currentFile = listOfFiles[selectedFileIndex];
+        const fileContent =  currentFile.getContent();
+        const fileName = currentFile.getName();
 
-        try {
-            const response = null;
-        } catch (error) {
-            console.error(error.message);
-        }
+        const blob = new Blob([fileContent], { type: "text/plain"});
+
+        const anchor = document.createElement("a");
+        anchor.href = URL.createObjectURL(blob);
+        anchor.download = fileName
+
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
     }
 
-
-    const downloadFile = async (file) => {
-        console.log("button clicked");
-
-        // try {
-        //     const response = null;         
-        // } catch (error) {
-        //     console.error(error.messsage);
-        // } 
-    }
-
-
-
-    return <button onClick={downloadFile}>Download</button>;
+    return <button onClick={downloadFile}>Download Input</button>;
 }
 
 export default DownloadButton;
