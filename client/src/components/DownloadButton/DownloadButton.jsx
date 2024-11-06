@@ -9,7 +9,7 @@ function DownloadButton({listOfFiles, selectedFileIndex}) {
 
         const anchor = document.createElement("a");
         anchor.href = URL.createObjectURL(blob);
-        anchor.download = fileName
+        anchor.download = fileName;
 
         document.body.appendChild(anchor);
         anchor.click();

@@ -1,10 +1,12 @@
+import Tag from "./Tag.jsx";
+
 class Parser {
     #currentMatch;
     #fileContent;
     #charPointer;
     #tabLevel;
+    #tags;
     #result;
-    #tagList;
     #matches;
 
     constructor(fileContent) {
@@ -15,10 +17,8 @@ class Parser {
         this.#currentMatch = "";
         this.#tabLevel = 0;
         this.#result = "";
-        this.#tagList = [];
-        this.#matches= "";
+        this.#tags= [];
         this.#fileContent = fileContent.trim();
-        console.log("printing fileContent : " + this.#fileContent);
     }
 
     tagOpener() {
@@ -60,10 +60,6 @@ class Parser {
         if (char === 'a') {
             this.processMatch(char);
 
-            console.log("printing current Match: " + this.#currentMatch);
-            console.log("printing current pointer: " + this.#charPointer);
-            console.log("printing next char: " + JSON.stringify(this.currentChar()));
-
             result = this.b()
                   || this.c()
                   || this.d()
@@ -80,8 +76,6 @@ class Parser {
                   || this.tagCloser()
                   || this.findNextTagCloser()
             
-            console.log("printing result in a : result : " + result);
-            console.trace();
         }
 
         return result;
@@ -357,9 +351,6 @@ class Parser {
                   || this.v()
                   || this.tagCloser()
                   || this.findNextTagCloser();
-
-            console.log("printing return value in n: " + result); 
-            console.trace(); 
         }
 
 
@@ -464,8 +455,6 @@ class Parser {
         if (char === 's') {
             this.processMatch(char);
     
-            console.log("printing current shit in s: " + this.#currentMatch);
-
             result = this.a() 
                   || this.c()
                   || this.e()
@@ -480,8 +469,6 @@ class Parser {
                   || this.v()
                   || this.tagCloser()
                   || this.findNextTagCloser();
-
-            console.log("printing result value in s : " + result); 
         }
 
         return result;
@@ -622,15 +609,9 @@ class Parser {
         let result = false;
 
         if (char === '>') {
-            this.processMatch(char);
- 
-            // FIXME: Make this actually work.
-            // needs to be working with the 
-            this.#matches += this.#currentMatch + "\n";
-            // consume current match here. 
-            this.#currentMatch = "";
+            this.processMatch(char);  
+            this.processTagMatch();
             
-            // Once we find a match,  
             result = this.doneMatching() 
                   || this.tagOpener()
                   || this.findNextTagOpener(); 
@@ -651,10 +632,15 @@ class Parser {
         return this.findNextTagOpener();
     }
 
-
     //////////////////////////////////
     // Helper functions below
     //////////////////////////////////
+
+    processTagMatch() {
+        const tag = new Tag(this.#currentMatch);
+        this.#tags.push(tag); 
+        this.#currentMatch = "";
+    }
 
     processMatch(character) {
         this.appendCurrentMatch(character);
@@ -665,13 +651,6 @@ class Parser {
     doneMatching() {
         // check if there are only spaces left
         let result = (this.#charPointer === this.#fileContent.length);
-
-        console.log("made it to done matching.\n"); 
-        console.log("printing current match in done matching : "  + this.#currentMatch);
-        console.log("here is the current chqaracter pointer: "  + this.#charPointer);
-        console.log("here is the filecontent.length : " + this.#fileContent.length); 
-        console.log("here is the current match : " + this.#currentMatch);
-        console.trace(); 
 
         if (!result) {
             let tempPtr = this.#charPointer;
@@ -686,8 +665,6 @@ class Parser {
                 tempPtr += 1;
             }
         }
-
-        console.log("printing return result from done matching : " + result);
 
         return result;
     }
@@ -761,9 +738,7 @@ class Parser {
     }
 
     makeTreeVisual() {
-        this.#result += "Temp Tree\n";
-        this.#result += this.#matches;
-        console.log("PRINTING FINAL RESULT: \n" + this.#matches);
+        this.#result += JSON.stringify(this.#tags);
     }
 
     getVisual() {
