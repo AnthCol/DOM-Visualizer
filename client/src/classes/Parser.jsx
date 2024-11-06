@@ -27,7 +27,8 @@ class Parser {
 
         if (char === '<') {
             this.processMatch(char);
-            result = this.a()
+            result = this.forwardSlash()
+                  || this.a()
                   || this.b()
                   || this.c()
                   || this.d()
@@ -50,6 +51,38 @@ class Parser {
                   || this.w();
         } 
         
+        return result;
+    }
+
+    forwardSlash() {
+        const char = this.currentChar();
+        let result = false;
+
+        if (char === '/') {
+            this.processMatch(char);
+            result = this.a()
+                  || this.b()
+                  || this.c()
+                  || this.d()
+                  || this.e()
+                  || this.f()
+                  || this.h()
+                  || this.i()
+                  || this.k()
+                  || this.l()
+                  || this.m()
+                  || this.n()
+                  || this.o()
+                  || this.p()
+                  || this.q()
+                  || this.r()
+                  || this.s()
+                  || this.t()
+                  || this.u()
+                  || this.v()
+                  || this.w()
+        }
+
         return result;
     }
 
@@ -738,7 +771,9 @@ class Parser {
     }
 
     makeTreeVisual() {
-        this.#result += JSON.stringify(this.#tags);
+        for (let tag of this.#tags) {
+            this.#result += JSON.stringify(tag) + "\n";
+        }
     }
 
     getVisual() {
