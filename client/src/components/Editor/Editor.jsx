@@ -1,20 +1,42 @@
 import ace from "ace-builds/src-noconflict/ace";
 import AceEditor from "react-ace";
-import "./Editor.css";
 import "ace-builds/src-noconflict/mode-html";
+import PathInformation from "../../classes/PathInformation.jsx";
+import ServerInformation from "../../classes/ServerInformation.jsx";
+import "./Editor.css";
+
 ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
 
 
 const Editor = ({listOfFiles, selectedFileIndex}) => {  
+
+    // "Autosave"
+    const patchCode = async (fileName, code) => {
+        try { 
+            const apiPath = ServerInformation.location + PathInformation.patchFilePath + "/" + fileName;
+
+            const response = await fetch(apiPath, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type" : "text/plain"
+                },
+                body: code
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response for " + apiPath + " was not ok.");
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     const codeChange = (newCode) => { 
         let file = listOfFiles[selectedFileIndex]
+        const fileName = file.getName();
         file.setContent(newCode);
-        // FIXME send request to the server to
-        // update the file content in the database. 
-        // implementing autosave with a timer?
-        // check last changed time for file, if it 
-        // has been over 10 seconds save it?
-        // something like that 
+        patchCode(fileName, newCode);     
     } 
     
     const defaultProgram = "";

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class FileController {
     @Autowired
     private JdbcTemplate databaseInterface;
 
-    // FIXME consider adding the ResponseEntity class 
+    // FIXME: consider adding the ResponseEntity class 
     // as return values instead of using void. 
 
     @GetMapping(ConfigConstants.filesPathPrefix + "/get")
@@ -67,5 +68,17 @@ public class FileController {
             e.printStackTrace();
         }
     }
+
+    @PatchMapping(ConfigConstants.filesPathPrefix + "/patch/{fileName}")
+    public void patchFile(@PathVariable String fileName, @RequestBody String fileContent) {
+        String query = "UPDATE " + tableName + " SET content = ? WHERE name = ?";
+
+        try  {
+            databaseInterface.update(query, fileContent, fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
