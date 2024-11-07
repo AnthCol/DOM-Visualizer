@@ -27,6 +27,8 @@ services:
       POSTGRES_DB: database
       POSTGRES_USER: username
       POSTGRES_PASSWORD: password
+    volumes:
+      -  savedDatabaseInfo:/var/lib/postgresql/data
     networks:
       - server-database
 
@@ -36,3 +38,5 @@ networks:
   server-database:
     driver: bridge
 
+volumes:
+  savedDatabaseInfo:
