@@ -10,12 +10,13 @@ function DeleteButton({listOfFiles, setListOfFiles, selectedFileIndex, setSelect
 
     const deleteFileFromDatabase = async (fileName) => {
         try {
-            const response = await fetch(ServerInformation.location + PathInformation.deleteFilePath + "/" + fileName, {
+            const apiPath = ServerInformation.location + PathInformation.deleteFilePath + "/" + fileName
+            const response = await fetch(apiPath, {
                 method: "DELETE",
             });
 
             if (!response.ok) {
-                throw new Error("Network response for " + PathInformation.deleteFilePath + "/" + fileName + " was not ok.");
+                throw new Error("Network response for " + apiPath + " was not ok.");
             }
         } catch (error) {
             console.error(error.message);
