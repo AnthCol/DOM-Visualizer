@@ -60,16 +60,25 @@ To use this project, you must have [Docker](https://www.docker.com/) installed, 
 
 ### Usage
 
-```bash
-# All docker commands should be done from the root directory of this project. 
-# To start the program up, run the following comand:
-docker compose up --build
+```sh
+# To run the project, use the following command in the root directory of the project:
+docker compose --profile run up --build
 
 # Once complete, access the following address:
 https://localhost:5173
 
 # To shut the program down do the following:
 docker compose down
+
+
+# You can also run tests using the following command:
+docker compose --profile test up --build
+
+# Futhermore, a shell script has been provided to simplify this process.
+# You can use it with a --test flag which will run the tests, otherwise 
+# it will run the project as normal:
+./run.sh
+./run.sh --test
 ```
 
 ### Motivation

@@ -1,6 +1,8 @@
 services:
   server:
     build: ./server
+    profiles:
+      - run
     ports:
       - "8080:8080"
     networks:
@@ -10,7 +12,11 @@ services:
       - database
 
   client:
-    build: ./client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.client
+    profiles:
+      - run
     ports:
       - "5173:5173"
     volumes:
@@ -21,6 +27,8 @@ services:
   database:
     container_name: database
     build: ./database
+    profiles:
+      - run
     ports:
       - "5432:5432"
     environment:
@@ -31,6 +39,15 @@ services:
       -  savedDatabaseInfo:/var/lib/postgresql/data
     networks:
       - server-database
+
+  test:
+    container_name: test
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.test
+    profiles:
+      - test
+
 
 networks:
   client-server:
