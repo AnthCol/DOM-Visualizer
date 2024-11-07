@@ -40,8 +40,9 @@
 
 - [x] Create basic design for frontend
 - [x] Connect frontend, server, and database together
-- [ ] Implement the parser logic
-- [ ] Make database persistent across launches
+- [x] Implement the parser logic
+- [x] Make database persistent across launches
+- [ ] Create tree visualization
 - [ ] Improve frontend appearance
 - [ ] Allow users to create separate accounts (maybe?)
 
