@@ -1,0 +1,14 @@
+name: test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Docker Setup
+        uses: docker/setup-buildx-action@v3.7.1
+      - name: Run Tests
+        run: docker compose --profile test up --build
