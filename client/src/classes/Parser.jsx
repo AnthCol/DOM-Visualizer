@@ -785,7 +785,7 @@ class Parser {
 
         if (current < len) {
             const c = this.#fileContent.charAt(current);
-            return c;
+            return c.toLowerCase();
         }
         // if we are past the end of the string don't match
         // any typeable character.
