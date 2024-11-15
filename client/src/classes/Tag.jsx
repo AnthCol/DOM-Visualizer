@@ -1,26 +1,22 @@
-const tagType = {
-    closing : 0,
-    opening : 1,
-    unknown : 2
-}
 
 class Tag {
-    constructor(tag) {
+    constructor(tag, type, indentationLevel) {
         this.tag = tag;
-        this.type = this.determineType();
+        this.value = tag.replace(/[</>]/g, ""); 
+        this.type = type;
+        this.indentationLevel = indentationLevel;
     }
 
-    determineType() {
-        const t = this.tag; 
-        let type = tagType.unknown;
-
-        if (t.startsWith("</")) {
-            type = tagType.closing;
-        } else if (t.startsWith("<")) {
-            type = tagType.opening;
-        } 
-            
-        return type;
+    toString() {
+        // only print opening tags, otherwise we will 
+        // have redundant values in the tree. 
+        if (this.type === "closing") {
+            return "";
+        }
+        const spacesPerIndent = 2;
+        const spaces = " ".repeat(spacesPerIndent).repeat(this.indentationLevel);
+        const nodeValue = spaces.concat(this.value).concat("\n");
+        return nodeValue;
     }
 
 }

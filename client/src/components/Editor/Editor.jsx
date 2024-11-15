@@ -1,9 +1,10 @@
 import ace from "ace-builds/src-noconflict/ace";
 import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-html";
 import PathInformation from "../../classes/PathInformation.jsx";
 import ServerInformation from "../../classes/ServerInformation.jsx";
+
 import "./Editor.css";
+import "ace-builds/src-noconflict/mode-html";
 
 ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
 

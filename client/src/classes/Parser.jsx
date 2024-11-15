@@ -4,21 +4,15 @@ class Parser {
     #currentMatch;
     #fileContent;
     #charPointer;
-    #tabLevel;
     #tags;
-    #result;
-    #matches;
+    #level;
 
     constructor(fileContent) {
-        // strip leading whitespace from fileContent
-        // so that the first thing is a <, or at least should 
-        // be.
         this.#charPointer = 0;
         this.#currentMatch = "";
-        this.#tabLevel = 0;
-        this.#result = "";
-        this.#tags= [];
-        this.#fileContent = fileContent.trim();
+        this.#tags = [];
+        this.#fileContent = fileContent;
+        this.#level = 0;
     }
 
     tagOpener() {
@@ -26,7 +20,7 @@ class Parser {
         let result = false;
 
         if (char === '<') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             result = this.forwardSlash()
                   || this.a()
                   || this.b()
@@ -59,7 +53,7 @@ class Parser {
         let result = false;
 
         if (char === '/') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             result = this.a()
                   || this.b()
                   || this.c()
@@ -91,7 +85,7 @@ class Parser {
         let result = false;
 
         if (char === 'a') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.b()
                   || this.c()
@@ -119,7 +113,7 @@ class Parser {
         let result = false;
 
         if (char === 'b') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.a()
                   || this.b()
@@ -143,7 +137,7 @@ class Parser {
         let result = false;
 
         if (char === 'c') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.a()
                   || this.e()
@@ -164,7 +158,7 @@ class Parser {
         let result = false;        
 
         if (char === 'd') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.a()
                   || this.d()
@@ -189,7 +183,7 @@ class Parser {
         let result = false; 
 
         if (char === 'e') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             result = this.a()
                   || this.c()
                   || this.d()
@@ -215,7 +209,7 @@ class Parser {
         let result = false;
 
         if (char === 'f') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             result = this.i()
                   || this.n()
                   || this.o()
@@ -230,7 +224,7 @@ class Parser {
         let result = false;        
 
         if (char === 'g') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.c()
                   || this.e()
@@ -249,7 +243,7 @@ class Parser {
         let result = false;
 
         if (char === 'h') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.numbers()
                   || this.e()
@@ -269,7 +263,7 @@ class Parser {
         let result = false; 
 
         if (char === 'i') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.a()
                   || this.c()
@@ -297,7 +291,7 @@ class Parser {
         let result = false; 
 
         if (char === 'j') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
            
             result = this.e();
         }
@@ -311,7 +305,7 @@ class Parser {
         let result = false;        
 
         if (char === 'k') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.b()
                   || this.q()
@@ -328,7 +322,7 @@ class Parser {
         let result = false;
 
         if (char === 'l') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.a()
                   || this.d()
@@ -351,7 +345,7 @@ class Parser {
         let result = false;        
 
         if (char === 'm') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             result = this.a()
                   || this.b()
                   || this.e()
@@ -372,7 +366,7 @@ class Parser {
         let result = false;
 
         if (char === 'n') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
         
             result = this.a()
                   || this.d()
@@ -396,7 +390,7 @@ class Parser {
         let result = false;        
 
         if (char === 'o') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.b()
                   || this.c()
@@ -423,7 +417,7 @@ class Parser {
         let result = false;        
 
         if (char === 'p') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.a()
                   || this.i()
@@ -444,7 +438,7 @@ class Parser {
         let result = false;        
 
         if (char === 'q') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.u()
                   || this.tagCloser()
@@ -460,7 +454,7 @@ class Parser {
         let result = false;
 
         if (char === 'r') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.a()
                   || this.c()
@@ -486,7 +480,7 @@ class Parser {
         let result = false;        
 
         if (char === 's') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
     
             result = this.a() 
                   || this.c()
@@ -513,7 +507,7 @@ class Parser {
         let result = false; 
 
         if (char === 't') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.a()
                   || this.b()
@@ -544,7 +538,7 @@ class Parser {
         let result = false;        
 
         if (char === 'u') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.b()
                   || this.d()
@@ -567,7 +561,7 @@ class Parser {
         let result = false;
 
         if (char === 'v') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
         
             result = this.a()
                   || this.g()
@@ -585,7 +579,7 @@ class Parser {
         let result = false;        
 
         if (char === 'w') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.b();
         }
@@ -598,7 +592,7 @@ class Parser {
         let result = false;        
 
         if (char === 'x') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.t();
         }
@@ -612,7 +606,7 @@ class Parser {
         let result = false;        
 
         if (char === 'y') {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
             
             result = this.l()
                   || this.tagCloser()
@@ -629,7 +623,7 @@ class Parser {
         let result = false;
 
         if (numbers.includes(char)) {
-            this.processMatch(char);
+            this.processCharacterMatch(char);
 
             result = this.findNextTagCloser();
         }
@@ -642,9 +636,10 @@ class Parser {
         let result = false;
 
         if (char === '>') {
-            this.processMatch(char);  
+            this.processCharacterMatch(char);  
             this.processTagMatch();
-            
+            this.resetCurrentMatch(); 
+
             result = this.doneMatching() 
                   || this.tagOpener()
                   || this.findNextTagOpener(); 
@@ -662,6 +657,7 @@ class Parser {
     // Will return true if it makes it to the 
     // end of the file without failing. 
     parse() {
+        console.log("Printing in parse:");
         return this.findNextTagOpener();
     }
 
@@ -669,13 +665,29 @@ class Parser {
     // Helper functions below
     //////////////////////////////////
 
-    processTagMatch() {
-        const tag = new Tag(this.#currentMatch);
-        this.#tags.push(tag); 
-        this.#currentMatch = "";
+    
+    // TODO: Change to enum?
+    determineTagType(tag) {
+        let type = "unknown";
+        if (tag.startsWith("</")) {
+            type = "closing";
+        } else if (tag.startsWith("<")) {
+            type = "opening";
+        }
+        return type
     }
 
-    processMatch(character) {
+    processTagMatch() {
+        const tag = this.#currentMatch;
+        const type = this.determineTagType(tag);
+        const level = this.#level; 
+
+        this.updateIndentationLevel(type);
+
+        this.#tags.push(new Tag(tag, type, level)); 
+    }
+
+    processCharacterMatch(character) {
         this.appendCurrentMatch(character);
         this.consumeCharacter();
     }
@@ -722,6 +734,7 @@ class Parser {
         
         while (this.currentChar() !== '<') {
             this.consumeCharacter(); 
+            
             // if we have run to the end of the file 
             if (!this.onValidIndex()) {
                 found = false;
@@ -761,24 +774,157 @@ class Parser {
         return '\0';
     }
 
-    indent() {
-        let spacesPerIndent = 4;
-        this.#result += (" ".repeat(spacesPerIndent)).repeat(this.#tabLevel);
-    }
-
     consumeCharacter() {
         this.#charPointer += 1;
     }
 
+    validateTags() {
+        let errString = "";
+        
+        const validTags = [
+            "a",
+            "abbr",
+            "address",
+            "area",
+            "article",
+            "aside",
+            "audio",
+            "b",
+            "base",
+            "bdi",
+            "bdo",
+            "blockquote",
+            "body",
+            "br",
+            "button",
+            "canvas",
+            "caption",
+            "cite",
+            "code",
+            "col",
+            "colgroup",
+            "data",
+            "datagrid",
+            "datalist",
+            "dd",
+            "del",
+            "details",
+            "dfn",
+            "dialog",
+            "div",
+            "dl",
+            "dt",
+            "em",
+            "embed",
+            "fieldset",
+            "figcaption",
+            "figure",
+            "footer",
+            "form",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "head",
+            "header",
+            "hr",
+            "html",
+            "i",
+            "iframe",
+            "img",
+            "input",
+            "ins",
+            "kbd",
+            "label",
+            "legend",
+            "li",
+            "link",
+            "main",
+            "map",
+            "mark",
+            "meta",
+            "meter",
+            "nav",
+            "noscript",
+            "object",
+            "ol",
+            "optgroup",
+            "option",
+            "output",
+            "p",
+            "param",
+            "pre",
+            "progress",
+            "q",
+            "rb",
+            "rp",
+            "rt",
+            "ruby",
+            "s",
+            "samp",
+            "script",
+            "section",
+            "select",
+            "small",
+            "span",
+            "strong",
+            "style",
+            "sub",
+            "summary",
+            "sup",
+            "table",
+            "tbody",
+            "td",
+            "template",
+            "textarea",
+            "tfoot",
+            "th",
+            "thead",
+            "time",
+            "title",
+            "tr",
+            "track",
+            "u",
+            "ul",
+            "var",
+            "video",
+            "wbr"
+        ];
+
+        for (const tag of this.#tags) {
+            if (!tag.value in validTags) {
+                errString.concat("ERROR: Invalid tag: " + tag.value + "\n\n");
+            } 
+        }
+
+        return errString;
+    }
+
+
     makeTreeVisual() {
-        for (let tag of this.#tags) {
-            this.#result += JSON.stringify(tag) + "\n";
+        let tree = this.validateTags();
+        for (const tag of this.#tags) {
+            tree += tag.toString()
+        }
+        return tree;
+    }
+
+    updateIndentationLevel(type) {
+        if (type === "opening") {
+            this.#level += 1;
+        } else if (type === "closing") {
+            this.#level -= 1;
         }
     }
 
+    getTags() {
+        return this.#tags;
+    }
+
     getVisual() {
-        this.makeTreeVisual();
-        return this.#result;
+        return this.makeTreeVisual();
     }
 }
 
