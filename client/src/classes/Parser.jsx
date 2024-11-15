@@ -22,6 +22,7 @@ class Parser {
         if (char === '<') {
             this.processCharacterMatch(char);
             result = this.forwardSlash()
+                  || this.exclamation()
                   || this.a()
                   || this.b()
                   || this.c()
@@ -79,6 +80,19 @@ class Parser {
 
         return result;
     }
+
+    exclamation() {
+        const char = this.currentChar(); 
+        let result = false; 
+
+        if (char === '!') {
+            this.processCharacterMatch(char);
+            result = this.d();
+        }
+
+        return result;
+    }
+
 
     a() {
         const char = this.currentChar();        
@@ -420,6 +434,7 @@ class Parser {
             this.processCharacterMatch(char);
             
             result = this.a()
+                  || this.e()
                   || this.i()
                   || this.l()
                   || this.r()
@@ -609,6 +624,7 @@ class Parser {
             this.processCharacterMatch(char);
             
             result = this.l()
+                  || this.p()
                   || this.tagCloser()
                   || this.findNextTagCloser();
         }
@@ -671,6 +687,8 @@ class Parser {
         let type = "unknown";
         if (tag.startsWith("</")) {
             type = "closing";
+        } else if (tag.startsWith("<!")) {
+            type = "doctype";
         } else if (tag.startsWith("<")) {
             type = "opening";
         }

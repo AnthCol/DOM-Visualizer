@@ -13,6 +13,11 @@ class Tag {
         if (this.type === "closing") {
             return "";
         }
+
+        if (this.type === "doctype") {
+            return this.value.concat("\n");
+        }
+
         const spacesPerIndent = 2;
         const spaces = " ".repeat(spacesPerIndent).repeat(this.indentationLevel);
         const nodeValue = spaces.concat(this.value).concat("\n");
