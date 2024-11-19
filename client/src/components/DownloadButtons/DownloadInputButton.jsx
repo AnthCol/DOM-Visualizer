@@ -1,4 +1,4 @@
-function DownloadButton({listOfFiles, selectedFileIndex}) {
+function DownloadInputButton({listOfFiles, selectedFileIndex}) {
     
     function downloadFile() {
         const currentFile = listOfFiles[selectedFileIndex];
@@ -19,4 +19,4 @@ function DownloadButton({listOfFiles, selectedFileIndex}) {
     return <button onClick={downloadFile}>Download Input</button>;
 }
 
-export default DownloadButton;
+export default DownloadInputButton;

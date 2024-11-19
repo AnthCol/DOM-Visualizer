@@ -7,7 +7,8 @@ import FileList from "../FileList/FileList.jsx"
 import NewButton from "../NewButton/NewButton.jsx"
 import RunButton from "../RunButton/RunButton.jsx"
 import DeleteButton from "../DeleteButton/DeleteButton.jsx"
-import DownloadButton from "../DownloadButton/DownloadButton.jsx"
+import DownloadInputButton from "../DownloadButtons/DownloadInputButton.jsx"
+import DownloadOutputButton from "../DownloadButtons/DownloadOutputButton.jsx"
 
 import "./App.css"
 
@@ -17,10 +18,6 @@ function App()
     const [selectedFileIndex, setSelectedFileIndex] = useState(0);
     const [consoleOutput, setConsoleOutput] = useState(""); 
     const [listOfFiles, setListOfFiles] = useState([]);
-
-    // FIXME features to be implemented in the future. 
-    // const [standardInput, setStandardInput] = useState(""); 
-    // const [breakPoints, setBreakPoints] = useState([]);
 
     return (
         <>
@@ -39,15 +36,23 @@ function App()
                 setSelectedFileIndex={setSelectedFileIndex}
             />
 
-            <DownloadButton
-                listOfFiles={listOfFiles}
-                selectedFileIndex={selectedFileIndex}
-            />
 
             <RunButton 
                 listOfFiles={listOfFiles}
                 selectedFileIndex={selectedFileIndex}
                 setConsoleOutput={setConsoleOutput}
+            />
+
+            <br/>
+
+            <DownloadInputButton
+                listOfFiles={listOfFiles}
+                selectedFileIndex={selectedFileIndex}
+            />
+
+         
+            <DownloadOutputButton
+                consoleOutput={consoleOutput}
             />
 
             <br/>
