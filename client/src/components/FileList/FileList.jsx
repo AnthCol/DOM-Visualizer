@@ -4,7 +4,8 @@ import PathInformation from "../../classes/PathInformation"
 import ServerInformation from "../../classes/ServerInformation"
 import "./FileList.css"
 
-
+// FIXME: sorting of the list needs to be done?
+// or at the very least retrieve from the database the 
 const FileList = ({listOfFiles, setListOfFiles, selectedFileIndex, setSelectedFileIndex}) => 
 { 
     useEffect(() => {

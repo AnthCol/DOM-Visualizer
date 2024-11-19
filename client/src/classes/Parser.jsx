@@ -673,7 +673,6 @@ class Parser {
     // Will return true if it makes it to the 
     // end of the file without failing. 
     parse() {
-        console.log("Printing in parse:");
         return this.findNextTagOpener();
     }
 
