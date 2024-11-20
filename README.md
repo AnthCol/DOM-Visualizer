@@ -48,10 +48,10 @@
 - [x] Connect frontend, server, and database together
 - [x] Implement the parser logic
 - [x] Make database persistent across launches
-- [ ] Write tests for parser
-- [ ] Create tree visualization
+- [x] Write tests for parser
+- [x] Create tree visualization
 - [ ] Improve frontend appearance
-- [ ] Allow users to create separate accounts (maybe?)
+- [ ] Allow users to create separate accounts 
 
 
 ### Prerequisites
@@ -68,7 +68,7 @@ docker compose --profile run up --build
 https://localhost:5173
 
 # To shut the program down do the following:
-docker compose down
+docker compose --profile run down
 
 
 # You can also run tests using the following command:
@@ -79,6 +79,12 @@ docker compose --profile test up --build
 # it will run the project as normal:
 ./run.sh
 ./run.sh --test
+
+# To shut down all containers you can also use:
+./run.sh --down
+# this command will run:
+# docker compose --profile run down
+# docker compose --profile test down
 ```
 
 ### Motivation
