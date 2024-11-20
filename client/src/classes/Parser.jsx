@@ -104,6 +104,7 @@ class Parser {
             result = this.b()
                   || this.c()
                   || this.d()
+                  || this.g()
                   || this.i()
                   || this.l()
                   || this.m()
@@ -472,6 +473,7 @@ class Parser {
             this.processCharacterMatch(char);
 
             result = this.a()
+                  || this.b()
                   || this.c()
                   || this.e()
                   || this.i()
